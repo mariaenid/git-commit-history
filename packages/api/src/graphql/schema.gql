@@ -1,0 +1,19 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Collector {
+  id: Int!
+}
+
+type User {
+  id: string!
+  email: string!
+  password: string!
+}
+
+type Query {
+  getCollector(id: Int!): Collector!
+
+  register(name: string, password: string): User
+}

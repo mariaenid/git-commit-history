@@ -1,0 +1,24 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Collector {
+  id: Int!
+}
+
+type Login {
+  access_token: String!
+}
+
+type Mutation {
+  login(password: String! = "", username: String): Login!
+}
+
+type Query {
+  getCollector(id: Int!): Collector!
+  getUser(username: String!): User!
+}
+
+type User {
+  username: String!
+}
