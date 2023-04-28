@@ -1,11 +1,8 @@
-import { Resolver, Args, Query, Context, Mutation, ResolveField, createUnionType, ObjectType } from '@nestjs/graphql';
+import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { BadRequestException, ClassSerializerInterceptor, Inject, UnauthorizedException, UseGuards, UseInterceptors } from '@nestjs/common';
-import { Login, LoginResult } from '../users/users.dto';
-import { LocalAuthGuard } from './guards/local-auth.guards';
+import { BadRequestException, Inject, } from '@nestjs/common';
+import { LoginResult } from '../users/users.dto';
 import { Public } from './decorators';
-import { Strategy } from 'passport-jwt';
-import { LocalStrategy } from './strategies/local.strategy';
 
 
 @Resolver('Login')
@@ -14,22 +11,27 @@ export class AuthResolver {
   @Inject(AuthService)
   private readonly authService: AuthService;
 
-  /*
-  @Query(() => LoginResult)
-  @UseInterceptors(ClassSerializerInterceptor)
-  async register(@Args('user') user: RegisterDto): Promise<any | never> {
+  @Public()
+  @Mutation(() => LoginResult)
+  async register(
+    @Args('name', { nullable: false }) name: string,
+    @Args('email', { nullable: false }) email: string,
+    @Args('lastName', { nullable: false }) lastName: string,
+    @Args('password', { nullable: false }) password: string,
+  ) {
+    const user = { name, email, lastName, password };
+    const newUser = await this.authService.register(user);
 
-    return this.authService.register(user)
-  }*/
-
+    return { user: newUser }
+  }
 
   @Public()
-  @Mutation(() => Login)
+  @Mutation(() => LoginResult)
   async login(
     @Args('username', { nullable: true }) username?: string,
     @Args('password', { defaultValue: '' }) password?: string,
   ) {
-    const result = await this.authService.login({ username, password });
+    const result = await this.authService.login({ email: username, password });
 
     if (result) return result;
     throw new BadRequestException(

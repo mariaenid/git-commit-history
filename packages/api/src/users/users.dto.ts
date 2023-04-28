@@ -9,10 +9,17 @@ import { InputType, Field, ObjectType } from '@nestjs/graphql';
 
 @ObjectType()
 export class User {
+  @Field(() => String, { nullable: true })
+  name: string;
 
-  @Field(() => String)
-  username: string;
+  @Field(() => String, { nullable: true })
+  lastName: string;
 
+  @Field(() => String, { nullable: true })
+  password: string;
+
+  @Field(() => String, { nullable: true })
+  email: string;
 
 };
 
@@ -71,7 +78,7 @@ export class SignOutResult {
 
 @ObjectType()
 export class Login {
-
+  user: User
   @Field(() => String)
   access_token: string;
 

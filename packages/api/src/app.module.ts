@@ -9,6 +9,8 @@ import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/guards/jwt-auth.guards';
+import { UsersModule } from './users/users.module';
+import config from './config/config.development';
 
 @Module({
   imports: [
@@ -18,9 +20,9 @@ import { JwtAuthGuard } from './auth/guards/jwt-auth.guards';
       sortSchema: true,
       playground: true
     }),
-    // TypeOrmModule.forRoot(),
     OrmModule,
     CollectorsModule,
+    UsersModule,
     AuthModule,
   ],
   //providers: [

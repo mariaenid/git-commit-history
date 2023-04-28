@@ -1,9 +1,10 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from '../auth.service';
 import { ExtractJwt, Strategy, VerifiedCallback } from "passport-jwt";
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { AuthGuard } from '@nestjs/passport';
+import { UsersService } from '../../users/users.service';
 
 
 @Injectable()
@@ -17,6 +18,9 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
+  @Inject(UsersService)
+  private readonly userService: UsersService;
+
   constructor() {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -25,13 +29,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any, done: VerifiedCallback) {
-    //const user = await this.userService.findOneByPayload(payload);
-    //if (!user) {
-    // return done(new UnauthorizedException(), false);
-    //}
+    const user = await this.userService.findByEmail(payload.username);
+    if (!user) {
+      return done(new UnauthorizedException(), false);
+    }
 
-    //return done(null, { id: user.id }, payload.iat);
-
-    return { payload }
+    return done(null, { id: user.id }, payload.iat);
   }
 }

@@ -1,14 +1,34 @@
-import { PrimaryKey, Property } from '@mikro-orm/core';
+import { Column, PrimaryGeneratedColumn } from 'typeorm';
 
 export abstract class BaseEntity {
 
-  @PrimaryKey()
+  @PrimaryGeneratedColumn()
   id!: string;
 
-  @Property()
+  @Column()
   createdAt: Date = new Date();
 
-  @Property({ onUpdate: () => new Date() })
+  @Column()
   updatedAt: Date = new Date();
 
 }
+
+/*
+/*
+
+@Entity()
+export class User {
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column()
+    firstName: string
+
+    @Column()
+    lastName: string
+
+    @Column()
+    isActive: boolean
+}
+
+*/

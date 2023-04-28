@@ -1,19 +1,19 @@
-import { Entity, Property } from '@mikro-orm/core';
 
 import { BaseEntity } from './BaseEntity';
+import { Column, Entity } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'user' })
 export class User extends BaseEntity {
 
-  @Property()
+  @Column({ nullable: false })
   name: string;
 
-  @Property()
-  last_name: string;
+  @Column({ nullable: false })
+  lastName: string;
 
-  @Property()
+  @Column({ nullable: false })
   password: string;
 
-  @Property()
+  @Column({ nullable: false, unique: true })
   email: string;
 }

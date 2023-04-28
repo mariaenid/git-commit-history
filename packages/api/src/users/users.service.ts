@@ -2,37 +2,28 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities';
 import { Repository } from 'typeorm';
-import { UpdateNameDto } from './users.dto';
+import { BaseService } from '../utils';
 
 
 @Injectable()
-export class UsersService {
-  private readonly users = [
-    {
-      userId: 1,
-      username: 'john',
-      password: 'changeme',
-    },
-    {
-      userId: 2,
-      username: 'maria',
-      password: 'guess',
-    },
-  ];
+export class UsersService extends BaseService(User) {
+  repository: Repository<User>;
 
-  async findOne(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username) as any;
+  constructor(@InjectRepository(User) private usersRepository: Repository<User>,) {
+    super();
+    this.repository = usersRepository;
   }
 
-  /*
-  @InjectRepository(User)
-  private readonly repository: Repository<User>;
 
-  public async updateName(body: UpdateNameDto, req: any): Promise<User> {
-    const user: User = <User>req?.user || undefined;
+  async findByEmail(username: string): Promise<User | undefined> {
+    //return this.users.find(user => user.username === username) as any;
 
-    user.name = body.name;
+    return this.repository.findOneBy({ email: username })
+  }
 
-    return this.repository.save(user);
-  }*/
+  async create(user: User) {
+    const metadataUser = this.usersRepository.create({ ...user });
+    return this.repository.save(metadataUser);
+  }
+
 }

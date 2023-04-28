@@ -4,16 +4,28 @@ import { SqlHighlighter } from '@mikro-orm/sql-highlighter';
 import { BaseEntity, Collector, Location, User } from '../entities';
 
 const logger = new Logger('MikroORM');
-const config: Options = {
+const config = {
   entities: [Collector, Location, User, BaseEntity],
-  dbName: 'nestjs',
+  database: 'nestjs',
   type: 'postgresql',
   user: 'admin',
   password: 'admin',
   port: 5432,
-  highlighter: new SqlHighlighter(),
+  synchronize: true,
   debug: true,
-  logger: logger.log.bind(logger),
 };
 
 export default config;
+
+/*
+
+    type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [],
+      synchronize: true,
+
+*/
