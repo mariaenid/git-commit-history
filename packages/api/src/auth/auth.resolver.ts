@@ -19,7 +19,7 @@ export class AuthResolver {
     @Args('lastName', { nullable: false }) lastName: string,
     @Args('password', { nullable: false }) password: string,
   ) {
-    const user = { name, email, lastName, password };
+    const user = { name, email, lastName, password, };
     const newUser = await this.authService.register(user);
 
     return { user: newUser }

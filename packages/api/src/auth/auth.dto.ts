@@ -7,6 +7,9 @@ import { IsEmail, IsOptional, IsString, MinLength } from 'class-validator';
 @ObjectType()
 export class RegisterUserArgs {
   @Field(() => String, { nullable: false })
+  id?: string
+
+  @Field(() => String, { nullable: false })
   name: string;
 
   @Field(() => String, { nullable: false })

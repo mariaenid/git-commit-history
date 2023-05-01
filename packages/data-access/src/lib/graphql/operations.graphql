@@ -1,0 +1,19 @@
+mutation login($password: String!, $username: String) {
+  login(password: $password, username: $username) {
+    access_token
+    user {
+      id
+      name
+      email
+    }
+  }
+}
+
+query findOneUser($arg: String!) {
+  findOneUser(arg: $arg) {
+    name
+    email
+    password
+    lastName
+  }
+}

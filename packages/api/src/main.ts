@@ -10,6 +10,7 @@ async function bootstrap() {
   //await app.get(MikroORM).getSchemaGenerator().updateSchema();
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.enableCors();
 
   await app.listen(3000);
 }

@@ -17,8 +17,6 @@ export class AuthService {
     const user = await this.usersService.findByEmail(username);
 
     if (user && bcrypt.compareSync(pass, user.password, 8)) {
-      console.log('user', user);
-
       return user;
     }
     return null;
@@ -31,8 +29,10 @@ export class AuthService {
     const payload = { username: user.email, sub: user.id };
     return {
       access_token: this.jwtService.sign(payload),
+      user: { name: `${user.name} ${user.lastName}`, id: user.id, email: user.email }
     };
   }
+
 
   async register(user: RegisterUserArgs) {
     const password = bcrypt.hashSync(user.password, 8);
@@ -44,7 +44,8 @@ export class AuthService {
       updatedAt: new Date()
     } as unknown as User);
 
-    return createUser;
+    const newUser = await this.usersService.findByEmail(createUser.email)
+    return { ...newUser, id: user.id };
   }
 
 }

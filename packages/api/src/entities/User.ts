@@ -17,3 +17,14 @@ export class User extends BaseEntity {
   @Column({ nullable: false, unique: true })
   email: string;
 }
+
+/*
+@Entity({name: 'users'})
+export class User extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  readonly id!: number;
+
+  @Column()
+  nickname!: string;
+}
+*/

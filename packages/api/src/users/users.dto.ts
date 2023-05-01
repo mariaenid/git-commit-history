@@ -10,6 +10,10 @@ import { InputType, Field, ObjectType } from '@nestjs/graphql';
 @ObjectType()
 export class User {
   @Field(() => String, { nullable: true })
+  id: string;
+
+
+  @Field(() => String, { nullable: true })
   name: string;
 
   @Field(() => String, { nullable: true })
