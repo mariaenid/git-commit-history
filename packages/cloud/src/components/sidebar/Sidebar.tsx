@@ -1,6 +1,7 @@
 import { TurnedInNot } from "@mui/icons-material"
 import { Box, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
 import Divider from '@mui/material/Divider';
+import MenuIcon from '@mui/icons-material/Menu';
 
 export const SideBar = ({ drawerWidth = 240 }: { drawerWidth: number }) => {
   return (
@@ -17,9 +18,7 @@ export const SideBar = ({ drawerWidth = 240 }: { drawerWidth: number }) => {
         }}
       >
         <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Juan Pablo Torres
-          </Typography>
+          <MenuIcon />
         </Toolbar>
         <Divider />
         <List>

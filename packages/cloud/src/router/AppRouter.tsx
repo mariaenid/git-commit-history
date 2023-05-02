@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { NotificationProvider } from '../components/notification-provider/NotificationProvider';
 import Notification from '../components/notification/Notification';
 import Homepage from '../app/homepage/Homepage';
+import { environment } from '../environments/environment';
 
 export const AppRouter = () => {
     const { status, checkAuthToken } = useAuthStore();
@@ -16,7 +17,7 @@ export const AppRouter = () => {
 
     const client = new ApolloClient({
         cache: new InMemoryCache(),
-        uri: 'http://localhost:3000/graphql',
+        uri: environment.apiUrl,
         headers: { authorization: localStorage.getItem('token') || '' },
     });
 

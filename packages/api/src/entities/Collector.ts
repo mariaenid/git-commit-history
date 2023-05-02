@@ -1,26 +1,20 @@
-import { Entity, OneToOne, Property } from '@mikro-orm/core';
 
 import { BaseEntity } from './BaseEntity';
 import { Location } from './Location';
+import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
 
 
-@Entity()
+@Entity({ name: 'collector' })
 export class Collector extends BaseEntity {
-  @Property()
+  @Column({ nullable: false })
   name: string;
 
-  @Property()
+  @Column({ nullable: false })
   details: string;
 
 
-  @Property()
-  location_id: string;
-
-  @OneToOne(() => Location, {
-    owner: true,
-    orphanRemoval: true,
-    cascade: [],
-    fieldName: 'location_id',
-  })
+  @OneToOne(() => Location)
+  @JoinColumn()
   current_location: Location;
 }
+

@@ -15,7 +15,6 @@ export class GqlAuthGuard extends AuthGuard('jwt') {
   }
 }
 
-
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   @Inject(UsersService)
