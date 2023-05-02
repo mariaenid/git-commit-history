@@ -6,14 +6,27 @@ type Collector {
   id: Int!
 }
 
-type User {
-  id: string!
-  email: string!
-  password: string!
+type LoginResult {
+  access_token: String!
+  user: User!
+}
+
+type Mutation {
+  login(password: String! = "", username: String): LoginResult!
+  register(email: String!, lastName: String!, name: String!, password: String!): LoginResult!
 }
 
 type Query {
+  findAllUser: [User!]!
+  findOneUser(arg: String!): [User!]!
   getCollector(id: Int!): Collector!
+  getUserByEmail(email: String!): User!
+}
 
-  register(name: string, password: string): User
+type User {
+  email: String
+  id: String
+  lastName: String
+  name: String
+  password: String
 }

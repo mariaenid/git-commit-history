@@ -1,7 +1,7 @@
 overwrite: true
-schema: "graphql/schema.gql"
+schema: "packages/api/src/graphql/schema.gql"
 generates:
-  packages /data-access/src/lib/generated/generated.tsx:
+  packages/data-access/src/lib/generated/generated.tsx:
     documents: "packages/data-access/src/lib/**/*.graphql"
     plugins:
       - "typescript"

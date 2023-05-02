@@ -10,7 +10,7 @@ import { UsersModule } from './users/users.module';
   imports: [
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: './graphql/schema.gql',
+      autoSchemaFile: './packages/api/src/graphql/schema.gql',
       sortSchema: true,
       playground: true
     }),
