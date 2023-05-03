@@ -6,6 +6,15 @@ type Collector {
   id: Int!
 }
 
+type CommitDetail {
+  author: String
+  date: String
+  description: String
+  email: String
+  sha: String
+  url: String
+}
+
 type LoginResult {
   access_token: String!
   user: User!
@@ -20,6 +29,7 @@ type Query {
   findAllUser: [User!]!
   findOneUser(arg: String!): [User!]!
   getCollector(id: Int!): Collector!
+  getCommits: [CommitDetail!]!
   getUserByEmail(email: String!): User!
 }
 

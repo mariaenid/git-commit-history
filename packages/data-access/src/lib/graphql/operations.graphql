@@ -17,3 +17,14 @@ query findOneUser($arg: String!) {
     lastName
   }
 }
+
+query getCommits {
+  getCommits {
+    sha
+    url
+    date
+    author
+    email
+    description
+  }
+}

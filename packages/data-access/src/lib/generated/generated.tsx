@@ -20,6 +20,16 @@ export type Collector = {
   id: Scalars['Int'];
 };
 
+export type CommitDetail = {
+  __typename?: 'CommitDetail';
+  author?: Maybe<Scalars['String']>;
+  date?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  sha?: Maybe<Scalars['String']>;
+  url?: Maybe<Scalars['String']>;
+};
+
 export type LoginResult = {
   __typename?: 'LoginResult';
   access_token: Scalars['String'];
@@ -51,6 +61,7 @@ export type Query = {
   findAllUser: Array<User>;
   findOneUser: Array<User>;
   getCollector: Collector;
+  getCommits: Array<CommitDetail>;
   getUserByEmail: User;
 };
 
@@ -92,6 +103,11 @@ export type FindOneUserQueryVariables = Exact<{
 
 
 export type FindOneUserQuery = { __typename?: 'Query', findOneUser: Array<{ __typename?: 'User', name?: string | null, email?: string | null, password?: string | null, lastName?: string | null }> };
+
+export type GetCommitsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetCommitsQuery = { __typename?: 'Query', getCommits: Array<{ __typename?: 'CommitDetail', sha?: string | null, url?: string | null, date?: string | null, author?: string | null, email?: string | null, description?: string | null }> };
 
 
 export const LoginDocument = gql`
@@ -171,3 +187,42 @@ export function useFindOneUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOption
 export type FindOneUserQueryHookResult = ReturnType<typeof useFindOneUserQuery>;
 export type FindOneUserLazyQueryHookResult = ReturnType<typeof useFindOneUserLazyQuery>;
 export type FindOneUserQueryResult = Apollo.QueryResult<FindOneUserQuery, FindOneUserQueryVariables>;
+export const GetCommitsDocument = gql`
+    query getCommits {
+  getCommits {
+    sha
+    url
+    date
+    author
+    email
+    description
+  }
+}
+    `;
+
+/**
+ * __useGetCommitsQuery__
+ *
+ * To run a query within a React component, call `useGetCommitsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCommitsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCommitsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useGetCommitsQuery(baseOptions?: Apollo.QueryHookOptions<GetCommitsQuery, GetCommitsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCommitsQuery, GetCommitsQueryVariables>(GetCommitsDocument, options);
+      }
+export function useGetCommitsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCommitsQuery, GetCommitsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCommitsQuery, GetCommitsQueryVariables>(GetCommitsDocument, options);
+        }
+export type GetCommitsQueryHookResult = ReturnType<typeof useGetCommitsQuery>;
+export type GetCommitsLazyQueryHookResult = ReturnType<typeof useGetCommitsLazyQuery>;
+export type GetCommitsQueryResult = Apollo.QueryResult<GetCommitsQuery, GetCommitsQueryVariables>;

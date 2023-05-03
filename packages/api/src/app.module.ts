@@ -5,6 +5,7 @@ import { CollectorsModule } from './collectors/collectors.module';
 import { OrmModule } from './orm/orm.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { ApiGithubModule } from './api-github/api-github.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { UsersModule } from './users/users.module';
     CollectorsModule,
     UsersModule,
     AuthModule,
+    ApiGithubModule
   ],
   //providers: [
   // {
