@@ -38,7 +38,7 @@ export class ApiGithubService {
 
     return response.data.map(row => {
 
-      const { url, sha, commit: { author: { name: author, email, date }, message: description } } = row;
+      const { html_url: url, sha, commit: { author: { name: author, email, date }, message: description } } = row;
       return { sha, url, author, email, description, date }
     });
   }

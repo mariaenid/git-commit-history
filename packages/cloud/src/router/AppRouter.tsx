@@ -15,15 +15,20 @@ export const AppRouter = () => {
 
     const all = useSelector((state: any) => state.auth);
 
+    console.log('TOKEN', localStorage.getItem('token'))
+
     const client = new ApolloClient({
         cache: new InMemoryCache(),
         uri: environment.apiUrl,
-        headers: { authorization: localStorage.getItem('token') || '' },
+        headers: {
+            authorization: `Bearer ${localStorage.getItem('token') || ''}`
+        },
     });
 
     useEffect(() => {
+
         checkAuthToken();
-    }, []);
+    }, [checkAuthToken]);
 
     if (status === AuthStatus.Loading) {
         return <h3>Cargando...</h3>;

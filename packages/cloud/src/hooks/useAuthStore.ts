@@ -1,6 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { cleanErrorMessage, onCheck, onLogin, onLogout } from '../store/auth/authSlice';
-import { useLoginMutation } from 'data-access';
 import { useContext } from 'react';
 import AlertContext from '../components/notification-provider/NotificationProvider';
 //import { AlertSweetalert } from '../commons/AlertSweetalert';
@@ -14,7 +13,6 @@ export const useAuthStore = () => {
     dispatch(onCheck());
 
     if (payload instanceof Error) {
-      console.log('ERROR', payload)
       dispatch(onLogout(payload.message));
     }
 
@@ -24,10 +22,8 @@ export const useAuthStore = () => {
       dispatch(onLogin({ fullname: user?.name, uid: user.id }))
     } catch (error: unknown) {
 
-      console.log('ALERT', alert)
       if (alert) alert.error('UnAuthorized login');
 
-      //AlertSweetalert("Error",error.response.data.message, "error","ERROR");
       dispatch(onLogout(error));
       setTimeout(() => {
         dispatch(cleanErrorMessage())

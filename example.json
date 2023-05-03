@@ -1,0 +1,46 @@
+{
+  "data": {
+    "getCommits": [
+      {
+        "sha": "2a9302cf6df4b7d47b5cf0724ef166ee21ebfb6a",
+        "url": "https://api.github.com/repos/mepineda1992/git-commit-history/commits/2a9302cf6df4b7d47b5cf0724ef166ee21ebfb6a",
+        "date": "2023-05-01T17:13:25Z",
+        "author": "Maria Pineda",
+        "email": "mepineda1992@gmail.com",
+        "description": "Implement NotificationProvider and Redux for ui"
+      },
+      {
+        "sha": "d72111d18f2875f116d7c656099a8dfd0a7e1222",
+        "url": "https://api.github.com/repos/mepineda1992/git-commit-history/commits/d72111d18f2875f116d7c656099a8dfd0a7e1222",
+        "date": "2023-04-28T14:47:48Z",
+        "author": "Maria Pineda",
+        "email": "mepineda1992@gmail.com",
+        "description": "Implement query templates"
+      },
+      {
+        "sha": "a25ef9d67cbbd544655f42c55f656fb36d112731",
+        "url": "https://api.github.com/repos/mepineda1992/git-commit-history/commits/a25ef9d67cbbd544655f42c55f656fb36d112731",
+        "date": "2023-04-27T20:13:32Z",
+        "author": "Maria Pineda",
+        "email": "mepineda1992@gmail.com",
+        "description": "Implement Login commit history"
+      },
+      {
+        "sha": "dc463f572d7d508d9ceca570da50c3111443a156",
+        "url": "https://api.github.com/repos/mepineda1992/git-commit-history/commits/dc463f572d7d508d9ceca570da50c3111443a156",
+        "date": "2023-04-26T18:43:21Z",
+        "author": "Maria Pineda",
+        "email": "mepineda1992@gmail.com",
+        "description": "setup initial configuration"
+      },
+      {
+        "sha": "38c249eb3f68362f1f78a0e31499d504a174802b",
+        "url": "https://api.github.com/repos/mepineda1992/git-commit-history/commits/38c249eb3f68362f1f78a0e31499d504a174802b",
+        "date": "2023-04-26T18:03:30Z",
+        "author": "Maria Pineda",
+        "email": "mepineda1992@gmail.com",
+        "description": "Initial commit"
+      }
+    ]
+  }
+}
