@@ -1,7 +1,6 @@
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
-import { CollectorsModule } from './collectors/collectors.module';
 import { OrmModule } from './orm/orm.module';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
@@ -16,7 +15,6 @@ import { ApiGithubModule } from './api-github/api-github.module';
       playground: true
     }),
     OrmModule,
-    CollectorsModule,
     UsersModule,
     AuthModule,
     ApiGithubModule
