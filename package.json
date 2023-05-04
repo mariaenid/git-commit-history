@@ -5,7 +5,8 @@
   "scripts": {
     "codegen": "npx graphql-codegen --config ./packages/data-access/codegen.yml",
     "start:api": "nx serve api",
-    "start:cloud": "nx serve cloud"
+    "start:cloud": "nx serve cloud",
+    "test:api": "nx test api"
   },
   "private": true,
   "devDependencies": {
