@@ -1,7 +1,7 @@
 import { Resolver, Args, Mutation, Query, Context } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
 import { BadRequestException, Inject, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { LoginResult, User } from '../users/users.dto';
+import { LoginResult } from '../users/users.dto';
 import { Public } from './decorators';
 import { JwtAuthGuard } from './guards/jwt-auth.guards';
 import { User as UserEntity } from '../entities';
@@ -21,9 +21,7 @@ export class AuthResolver {
     @Args('password', { nullable: false }) password: string,
   ) {
     const user = { name, email, lastName, password, };
-    const newUser = await this.authService.register(user);
-
-    return { user: newUser }
+    return this.authService.register(user);
   }
 
   @Public()
@@ -44,8 +42,6 @@ export class AuthResolver {
   @Query(() => LoginResult)
   @UseGuards(JwtAuthGuard)
   async getCurrentUser(@Context('req') request: any) {
-    console.log('token', request)
-
     const user: unknown = request.user;
     if (!user)
       throw new UnauthorizedException(

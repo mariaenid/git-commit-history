@@ -1,3 +1,4 @@
+export * from './lib/register/register';
 export * from './lib/table/table';
 export * from './lib/table/table';
 export * from './lib/auth-layout/auth-layout';

@@ -53,8 +53,10 @@ export class AuthService {
       updatedAt: new Date()
     } as unknown as User);
 
-    const newUser = await this.usersService.findByEmail(createUser.email)
-    return { ...newUser, id: user.id };
+    const newUser = await this.usersService.findByEmail(createUser.email);
+    const payload = { username: user.email, sub: user.id };
+
+    return { user: { ...newUser, id: user.id }, access_token: this.jwtService.sign(payload) };
   }
 
 }

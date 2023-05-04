@@ -2,14 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { cleanErrorMessage, onCheck, onLogin, onLogout } from '../store/auth/authSlice';
 import { useContext } from 'react';
 import AlertContext from '../components/notification-provider/NotificationProvider';
-import { useGetCurrentUserQuery } from 'data-access';
 //import { AlertSweetalert } from '../commons/AlertSweetalert';
 export const useAuthStore = () => {
   const alert = useContext(AlertContext);
-  const { data, loading: isLoadingCurrentUser, error } = useGetCurrentUserQuery({
-    variables: {
-    },
-  });
+
   const { status, user, errorMessage } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
 
@@ -42,11 +38,15 @@ export const useAuthStore = () => {
     dispatch(onLogout(undefined))
   }
 
-  const startRegister = async (data: any) => {
+  const signUp = async (data: any) => {
     dispatch(onCheck())
     try {
       const resp = null;
-      //dispatch(onLogin(resp.data))
+
+      const { data: { register: { access_token, user } } } = data;
+      dispatch(onLogin({ fullname: user.name, uid: user.id }));
+      localStorage.setItem('token', access_token)
+
       //AlertSweetalert("Bien", "Tu registro fue exitoso.", "success", "OK");
     } catch (error) {
       //AlertSweetalert("Error", error.response.data.message, "error", "ERROR");
@@ -57,23 +57,26 @@ export const useAuthStore = () => {
     }
   }
 
-  const checkAuthToken = async () => {
+  const checkAuthToken = async (payload: any) => {
     const token = localStorage.getItem('token');
+
+
+    console.log('TOKEN', payload)
     if (!token) return dispatch(onLogout(""));
 
-    if (!data) return;
+    if (!payload) return;
 
     try {
       // const { data } = await genesisApi.get('/renew');
       localStorage.setItem('token', token);
-      const { getCurrentUser: { user } } = data
+      const { getCurrentUser: { user } } = payload
 
       if (!user) return;
 
       dispatch(onLogin({ fullname: user['name'], uid: user.id }))
     } catch (error) {
       localStorage.clear()
-      dispatch(onLogout(data));
+      dispatch(onLogout(payload));
     }
   }
 
@@ -82,7 +85,7 @@ export const useAuthStore = () => {
     user,
     errorMessage,
     signIn,
-    startRegister,
+    signUp,
     checkAuthToken,
     signOut
   }

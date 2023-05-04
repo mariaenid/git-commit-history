@@ -9,6 +9,27 @@ mutation login($password: String!, $username: String) {
   }
 }
 
+mutation register(
+  $password: String!
+  $email: String!
+  $lastName: String!
+  $name: String!
+) {
+  register(
+    password: $password
+    email: $email
+    lastName: $lastName
+    name: $name
+  ) {
+    access_token
+    user {
+      id
+      name
+      email
+    }
+  }
+}
+
 query getCurrentUser {
   getCurrentUser {
     access_token

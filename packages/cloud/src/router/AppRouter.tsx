@@ -6,14 +6,21 @@ import { AuthStatus } from '../store/auth/authSlice';
 import { NotificationProvider } from '../components/notification-provider/NotificationProvider';
 import Notification from '../components/notification/Notification';
 import Homepage from '../app/homepage/Homepage';
+import Register from 'packages/feature-sets/src/lib/register/register';
+import { useGetCurrentUserQuery } from 'data-access';
 
 export const AppRouter = () => {
     const { status, checkAuthToken } = useAuthStore();
+    const { data, loading: isLoading } = useGetCurrentUserQuery({
+        variables: {
+        },
+    });
 
     useEffect(() => {
-        checkAuthToken();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        if (status === AuthStatus.NotAuthenticated) {
+            checkAuthToken(data);
+        }
+    }, [isLoading]);
 
     if (status === AuthStatus.Loading) {
         return <h3>Loading ...</h3>;
@@ -26,7 +33,7 @@ export const AppRouter = () => {
                 {status === AuthStatus.NotAuthenticated ? (
                     <>
                         <Route path="/auth/login" element={<LoginPage />} />
-                        <Route path='/auth/register' element={<div>Register</div>} />
+                        <Route path='/auth/register' element={<Register />} />
                         <Route path="/*" element={<Navigate to="auth/login" />}></Route>
                     </>
                 ) : (
