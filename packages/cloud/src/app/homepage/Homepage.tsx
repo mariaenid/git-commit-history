@@ -54,7 +54,7 @@ const Homepage = () => {
       sx={{ flexGrow: 1, p: 3 }}
     >
       <Toolbar />
-      {loading ? <div>cargando</div> : <Search data={data!} />}
+      {loading ? <div>loading...</div> : <Search data={data!} />}
     </Box>
   </Box>)
 }
