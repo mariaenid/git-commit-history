@@ -1,44 +1,51 @@
-import { TurnedInNot } from "@mui/icons-material"
-import { Box, Drawer, Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Toolbar, Typography } from "@mui/material"
-import Divider from '@mui/material/Divider';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
+import * as React from 'react';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 
-export const SideBar = ({ drawerWidth = 240 }: { drawerWidth: number }) => {
-  return (
-    <Box
-      component="nav"
-      sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-    >
-      <Drawer
-        variant="permanent"
-        open
-        sx={{
-          display: { xs: 'block' },
-          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth }
-        }}
-      >
-        <Toolbar>
-          <MenuIcon />
-        </Toolbar>
-        <Divider />
-        <List>
-          {
-            ['Enero', 'Febrero', 'Marzo', 'Abril'].map(text => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    <TurnedInNot />
-                  </ListItemIcon>
-                  <Grid container>
-                    <ListItemText primary={text} />
-                    <ListItemText secondary={'Ea elit reprehenderit culpa voluptate ut consectetur.'} />
-                  </Grid>
-                </ListItemButton>
-              </ListItem>
-            ))
-          }
-        </List>
-      </Drawer >
-    </Box>
-  )
+type Anchor = 'top' | 'left' | 'bottom' | 'right';
+interface SideBarProps {
+  state: any;
+  drawerWidth: number;
+  toggleDrawer: (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => void;
+  currentState: string
+  setCurrentState: (arg: string) => void;
 }
+
+const SideBar = ({ toggleDrawer, state, setCurrentState }: SideBarProps) => {
+
+
+  const list = (anchor: Anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Commits'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton onClick={() => setCurrentState(text)}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  return (
+    <Drawer
+      anchor={'left'}
+      open={state['left']}
+      onClose={toggleDrawer('left', false)}
+    >
+      {list('left')}
+    </Drawer>
+  );
+}
+
+export default SideBar;

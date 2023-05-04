@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from '../entities';
 import { Repository } from 'typeorm';
-import { UpdateNameDto } from './users.dto';
 import { BaseService } from '../utils';
 
 
@@ -17,8 +16,6 @@ export class UsersService extends BaseService(User) {
 
 
   async findByEmail(username: string): Promise<User | undefined> {
-    //return this.users.find(user => user.username === username) as any;
-
     return this.repository.findOneBy({ email: username })
   }
 

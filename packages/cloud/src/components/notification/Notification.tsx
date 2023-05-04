@@ -131,6 +131,7 @@ export default function Notification() {
 
   const handleOnExited = () => {
     setExited(true);
+
   };
 
   useEffect(() => {
@@ -138,7 +139,6 @@ export default function Notification() {
       setOpen(true)
   }, [notificationCtx.notificationText]);
 
-  console.log('WHAT', notificationCtx.notificationText)
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
     <React.Fragment>

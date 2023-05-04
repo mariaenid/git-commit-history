@@ -4,8 +4,8 @@
   "license": "MIT",
   "scripts": {
     "codegen": "npx graphql-codegen --config ./packages/data-access/codegen.yml",
-    "api": "nx serve api",
-    "cloud": "nx serve cloud"
+    "start:api": "nx serve api",
+    "start:cloud": "nx serve cloud"
   },
   "private": true,
   "devDependencies": {

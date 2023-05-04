@@ -2,9 +2,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import { cleanErrorMessage, onCheck, onLogin, onLogout } from '../store/auth/authSlice';
 import { useContext } from 'react';
 import AlertContext from '../components/notification-provider/NotificationProvider';
+import { useGetCurrentUserQuery } from 'data-access';
 //import { AlertSweetalert } from '../commons/AlertSweetalert';
 export const useAuthStore = () => {
   const alert = useContext(AlertContext);
+  const { data, loading: isLoadingCurrentUser, error } = useGetCurrentUserQuery({
+    variables: {
+    },
+  });
   const { status, user, errorMessage } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
 
@@ -13,6 +18,7 @@ export const useAuthStore = () => {
     dispatch(onCheck());
 
     if (payload instanceof Error) {
+      console.log('ERROR', payload)
       dispatch(onLogout(payload.message));
     }
 
@@ -55,13 +61,19 @@ export const useAuthStore = () => {
     const token = localStorage.getItem('token');
     if (!token) return dispatch(onLogout(""));
 
+    if (!data) return;
+
     try {
       // const { data } = await genesisApi.get('/renew');
-      //localStorage.setItem('token', data.token)
-      //dispatch(onLogin({ fullname: data['fullName'], uid: data.id }))
+      localStorage.setItem('token', token);
+      const { getCurrentUser: { user } } = data
+
+      if (!user) return;
+
+      dispatch(onLogin({ fullname: user['name'], uid: user.id }))
     } catch (error) {
       localStorage.clear()
-      //dispatch(onLogout(error.response.data.message));
+      dispatch(onLogout(data));
     }
   }
 

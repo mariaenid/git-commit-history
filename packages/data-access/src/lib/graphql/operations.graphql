@@ -9,6 +9,17 @@ mutation login($password: String!, $username: String) {
   }
 }
 
+query getCurrentUser {
+  getCurrentUser {
+    access_token
+    user {
+      id
+      name
+      email
+    }
+  }
+}
+
 query findOneUser($arg: String!) {
   findOneUser(arg: $arg) {
     name

@@ -30,6 +30,7 @@ type Query {
   findOneUser(arg: String!): [User!]!
   getCollector(id: Int!): Collector!
   getCommits: [CommitDetail!]!
+  getCurrentUser: LoginResult!
   getUserByEmail(email: String!): User!
 }
 

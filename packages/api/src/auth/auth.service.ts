@@ -33,6 +33,15 @@ export class AuthService {
     };
   }
 
+  async refresh(user: User) {
+    const [newUser] = await this.usersService.repository.findBy({ id: user.id });
+
+    return {
+      access_token: this.jwtService.sign({ username: newUser.email, sub: user.id }),
+      user: newUser
+    };
+
+  }
 
   async register(user: RegisterUserArgs) {
     const password = bcrypt.hashSync(user.password, 8);

@@ -19,9 +19,8 @@ const ATTRIBUTES = [
 const Search = (props: SearchProps) => {
   const drawerWidth = 240;
   const { data } = props;
-  console.log('DATA', data)
   return (<Box sx={{ display: 'flex' }}>
-    <Table data={data.getCommits} attributes={ATTRIBUTES} />
+    <Table data={data?.getCommits || []} attributes={ATTRIBUTES} />
   </Box>)
 }
 
