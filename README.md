@@ -3,15 +3,15 @@
 ## Run App
 
 We have two apps, one for frontend called cloud and one called api. I am using nx to create an integrated monorepo for the apps.
-They are built using React and NestJs respectively
+They are built using React and NestJs respectively. Also, to that works you need start a PostgresSQL database (Required for the login option), you can use the docker-compose provided to run one. If you want to change some names or credentials, please update docker.env
 
 ## Install dependencies
 
-Do you need install docker and set a .env with your own credentials. See an example on .env.template, then run:
+Do you need install docker and set a .env with your own credentials for GithubApiRest and the DataBase. See an example on .env.template. After that you are ready to run the example. The First steps is run the install
 
 `npm install`
 
-## Install dockerUser docker to init a database and init a login app
+## If you are using  docker-compose docker for the database. Init the database
 
 `docker compose up -d`
 
@@ -23,9 +23,9 @@ Do you need install docker and set a .env with your own credentials. See an exam
 
 # Ports Running
 
-- Api starts an application running on 3000 port. You can reach using http://localhost:3000/graphql
+- Api starts an application running on 3000 port. You can reach using http://localhost:3000/graphql (GraphQL Layer)
 
-- Cloud starts an application running on 4200 port. You can reach using http://localhost:4200
+- Cloud starts an application running on 4200 port. You can reach using http://localhost:4200 (UI)
 
 # Tests
 
