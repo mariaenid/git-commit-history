@@ -36,13 +36,14 @@ export function App() {
   });
 
   useEffect(() => {
-    if (status === AuthStatus.Authenticated) {
+    const token = localStorage.getItem('token')
+    if (status === AuthStatus.Authenticated || token) {
       // eslint-disable-next-line react-hooks/exhaustive-deps
       client = new ApolloClient({
         cache: new InMemoryCache(),
         uri: environment.apiUrl,
         headers: {
-          authorization: `Bearer ${localStorage.getItem('token') || ''}`
+          authorization: `Bearer ${token || ''}`
         },
       });
     }
