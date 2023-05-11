@@ -1,5 +1,5 @@
-import { Box, Link, Toolbar } from "@mui/material"
-import { GetCommitsQuery, useGetCommitsQuery } from "data-access";
+import { Box, Link } from "@mui/material"
+import { GetCommitsQuery } from "data-access";
 import { Table } from "feature-sets";
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -17,10 +17,9 @@ const ATTRIBUTES = [
 
 
 const Search = (props: SearchProps) => {
-  const drawerWidth = 240;
   const { data } = props;
   return (<Box sx={{ display: 'flex' }}>
-    <Table data={data?.getCommits || []} attributes={ATTRIBUTES} />
+    <Table data={data} attributes={ATTRIBUTES} />
   </Box>)
 }
 

@@ -40,3 +40,4 @@ Thumbs.db
 
 #Env
 .env
+api.env

@@ -2,10 +2,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { onLoadError, onLoadCommits } from '../store/auth/commitSlice';
 
 export const useCommitStore = () => {
-  const { status } = useSelector((state: any) => state.commits);
+  const { commits } = useSelector((state: any) => state.commits);
   const dispatch = useDispatch();
 
-  const onSaveCommitsToStore = async (payload: any) => {
+  const onSaveCommitsToStore = async (payload: unknown) => {
 
     if (payload instanceof Error) {
       dispatch(onLoadError(payload.message));
@@ -16,9 +16,8 @@ export const useCommitStore = () => {
 
   }
 
-
   return {
-    status,
+    commits: commits,
     onSaveCommitsToStore,
   }
 }

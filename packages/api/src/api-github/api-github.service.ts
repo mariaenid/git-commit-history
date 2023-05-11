@@ -28,8 +28,7 @@ export class ApiGithubService {
         )
         .pipe(
           catchError((error: AxiosError) => {
-            console.log('ERROR', error);
-            throw 'An error happened!';
+            throw (error);
           }),
         ),
     ));

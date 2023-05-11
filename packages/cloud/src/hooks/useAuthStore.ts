@@ -2,7 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { cleanErrorMessage, onCheck, onLogin, onLogout } from '../store/auth/authSlice';
 import { useContext } from 'react';
 import AlertContext from '../components/notification-provider/NotificationProvider';
-//import { AlertSweetalert } from '../commons/AlertSweetalert';
+
 export const useAuthStore = () => {
   const alert = useContext(AlertContext);
 
@@ -13,9 +13,9 @@ export const useAuthStore = () => {
 
     dispatch(onCheck());
 
+
     if (payload instanceof Error) {
-      console.log('ERROR', payload)
-      dispatch(onLogout(payload.message));
+      dispatch(onLogout(payload));
     }
 
     try {
@@ -41,16 +41,11 @@ export const useAuthStore = () => {
   const signUp = async (data: any) => {
     dispatch(onCheck())
     try {
-      const resp = null;
-
       const { data: { register: { access_token, user } } } = data;
       dispatch(onLogin({ fullname: user.name, uid: user.id }));
       localStorage.setItem('token', access_token)
 
-      //AlertSweetalert("Bien", "Tu registro fue exitoso.", "success", "OK");
     } catch (error) {
-      //AlertSweetalert("Error", error.response.data.message, "error", "ERROR");
-      //dispatch(onLogout(error.response.data.message));
       setTimeout(() => {
         dispatch(cleanErrorMessage())
       }, 10)
@@ -60,8 +55,6 @@ export const useAuthStore = () => {
   const checkAuthToken = async (payload: any) => {
     const token = localStorage.getItem('token');
 
-
-    console.log('TOKEN', payload)
     if (!token) return dispatch(onLogout(""));
 
     if (!payload) return;

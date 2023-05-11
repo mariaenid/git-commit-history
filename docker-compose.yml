@@ -1,18 +1,64 @@
 
 version: "3"
 services:
+  api:
+    container_name: api
+    build:
+      context: ./
+      cache_from:
+        - my-base-image:nx-base
+      dockerfile: ./packages/api/Dockerfile
+      args:
+        NODE_ENV: "development"
+        BUILD_FLAG: ""
+    image: api
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: "development"
+      PORT: 3000
+    env_file:
+      - api.env
+    networks:
+      - git-commit-history
+    restart: on-failure
+    depends_on:
+      - postgres
+
+  cloud:
+    container_name: cloud
+    build:
+      context: ./
+      cache_from:
+        - nginx:1.19.2
+      dockerfile: ./packages/cloud/Dockerfile
+      args:
+        NODE_ENV: "development"
+        BUILD_FLAG: ""
+        NX_API_URL: "http://api:3000/graphql"
+    image: cloud
+    ports:
+      - 80:80
+    environment:
+      NODE_ENV: "development"
+      PORT: 80
+    networks:
+      - git-commit-history
+    restart: on-failure
+    depends_on:
+      - api
   postgres:
-    container_name: nestjs-postgres
+    container_name: postgres
     image: postgres:latest
     ports:
       - "5432:5432"
     #volumes:
     #  - /data/postgres:/data/postgres
     env_file:
-      - docker.env
+      - postgres.env
     networks:
-      - postgres
- 
+      - git-commit-history
+
   pgadmin:
     links:
       - postgres:postgres
@@ -23,10 +69,9 @@ services:
     #volumes:
     #  - /data/pgadmin:/root/.pgadmin
     env_file:
-      - docker.env
+      - postgres.env
     networks:
-      - postgres
+      - git-commit-history
 
 networks:
-  postgres:
-    driver: bridge
+  git-commit-history:

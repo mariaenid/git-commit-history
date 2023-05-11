@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-interface ICommit {
+export interface ICommit {
   sha: string;
   url: string;
   author: string;
@@ -22,7 +22,7 @@ export const commitSlice = createSlice({
   },
   reducers: {
     onLoadCommits: (state, { payload }) => {
-      state.commits = payload.data
+      state.commits = payload.getCommits
       state.errorMessage = undefined;
     },
     onLoadError: (state, { payload }) => {

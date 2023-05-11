@@ -2,9 +2,12 @@ import styled from 'styled-components';
 import { AppRouter } from '../router/AppRouter';
 import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
 import { environment } from '../environments/environment';
+import { NotificationProvider } from '../components/notification-provider/NotificationProvider';
+import { useAuthStore } from '../hooks/useAuthStore';
+import { useEffect } from 'react';
+import { AuthStatus } from '../store/auth/authSlice';
 
 const StyledApp = styled.div`
-  // Your style here
   html {
     -webkit-text-size-adjust: 100%;
     font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
@@ -23,7 +26,8 @@ const StyledApp = styled.div`
 `;
 
 export function App() {
-  const client = new ApolloClient({
+  const { status } = useAuthStore();
+  let client = new ApolloClient({
     cache: new InMemoryCache(),
     uri: environment.apiUrl,
     headers: {
@@ -31,12 +35,26 @@ export function App() {
     },
   });
 
+  useEffect(() => {
+    if (status === AuthStatus.Authenticated) {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      client = new ApolloClient({
+        cache: new InMemoryCache(),
+        uri: environment.apiUrl,
+        headers: {
+          authorization: `Bearer ${localStorage.getItem('token') || ''}`
+        },
+      });
+    }
+  }, [status])
 
   return (
     <ApolloProvider client={client}>
-      <StyledApp>
-        <AppRouter />
-      </StyledApp>
+      <NotificationProvider>
+        <StyledApp>
+          <AppRouter />
+        </StyledApp>
+      </NotificationProvider>
     </ApolloProvider>
   );
 }

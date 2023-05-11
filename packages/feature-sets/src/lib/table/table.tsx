@@ -5,7 +5,6 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import MuiTable from "@material-ui/core/Table";
 import { makeStyles } from "@material-ui/core";
-import { useState } from "react";
 
 /* eslint-disable-next-line */
 export interface TableProps { }
@@ -33,9 +32,6 @@ interface ITableProps {
 export function Table(props: ITableProps) {
   const { data, attributes } = props;
   const classes = useStyles();
-  const [rows, setRows] = useState<any>(data);
-  const [searched, setSearched] = useState<string>("");
-
 
   return (
     <TableContainer>
@@ -46,7 +42,7 @@ export function Table(props: ITableProps) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row: any) => (
+          {data.map((row: any) => (
             <TableRow key={row.name}>
               {
                 attributes.map((attr) => (<TableCell align="right" component="th" scope="row">

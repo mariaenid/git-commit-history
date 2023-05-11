@@ -1,5 +1,5 @@
 
-import { Button, Grid, Link, TextField, Typography } from '@mui/material'
+import { Button, Grid, Link, TextField } from '@mui/material'
 import { Link as LinkRouter } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
@@ -10,7 +10,7 @@ import AuthLayout from "../auth-layout/auth-layout"
 import { useAuthStore } from '../../../../cloud/src/hooks/useAuthStore';
 
 const schema = yup.object({
-  email: yup.string().required('El email es requerido').email('El email no es valido'),
+  email: yup.string().required('Email is required').email('Email is not valid'),
   password: yup.string().required()
 }).required();
 
@@ -33,16 +33,9 @@ export function Login(props: LoginProps) {
   });
 
 
-  const [loginMutation, { data, loading, error }] = useLoginMutation(
+  const [loginMutation] = useLoginMutation(
     { variables: { ...getValues() } }
   );
-
-
-  const onSubmit = (data: any) => {
-    console.log("data", data);
-    //loginMutation(data)
-  }
-
 
   const onSignIn = async (data: any) => {
     try {
@@ -54,13 +47,13 @@ export function Login(props: LoginProps) {
   }
 
   return (<AuthLayout title='Login'>
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSignIn)}>
       <Grid container>
         <Grid item xs={12} sx={{ mt: 2 }}>
           <TextField
-            label="Correo"
+            label="Email"
             type="email"
-            placeholder='corrreo@gmail.com'
+            placeholder='email@gmail.com'
             fullWidth
             {...register("username")}
             error={errors.username ? true : false}
@@ -71,7 +64,7 @@ export function Login(props: LoginProps) {
           <TextField
             label="Password"
             type="password"
-            placeholder='Contraseña'
+            placeholder='Password'
             fullWidth
             {...register("password")}
             error={errors.password ? true : false}
@@ -93,7 +86,7 @@ export function Login(props: LoginProps) {
             component={LinkRouter}
             color="inherit"
             to="/auth/register">
-            Crear Cuenta
+            Create account
           </Link>
         </Grid>
       </Grid>

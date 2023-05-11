@@ -3,5 +3,5 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/graphql'
-};
+  apiUrl: process.env.NX_API_URL
+}

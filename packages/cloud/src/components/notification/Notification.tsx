@@ -1,26 +1,7 @@
 import { useContext, useEffect } from 'react';
 
-import { Alert, AlertTitle, AlertColor } from "@mui/material"
-import NotificationContext, { NotificationState } from '../notification-provider/NotificationProvider';
-/*
-interface AlertMessageProps {
-  title?: string;
-  message: string | React.ReactNode;
-  type?: string
-}
-export const Notification = () => {
+import NotificationContext from '../notification-provider/NotificationProvider';
 
-
-  return (<>
-    {notificationCtx.notification !== NotificationState.None &&
-      <Alert severity="error">
-        {<AlertTitle></AlertTitle>}
-        {notificationCtx.notificationText}
-      </Alert>}
-  </>)
-}
-export default Notification
-*/
 import * as React from 'react';
 import { Transition } from 'react-transition-group';
 import { styled } from '@mui/system';
